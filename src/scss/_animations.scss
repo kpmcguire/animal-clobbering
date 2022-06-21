@@ -1,0 +1,109 @@
+.moveright {
+	animation-duration: 1s;
+	animation-name: moveright;
+	animation-iteration-count: 1;    
+	animation-delay: 0;        
+}
+.moveleft {
+	animation-duration: 1s;
+	animation-name: moveleft;
+	animation-iteration-count: 1;    
+	animation-delay: 0;        
+}
+
+.moveup {
+	animation-duration: 1s;
+	animation-name: moveup;
+	animation-iteration-count: 1;    
+	animation-delay: 0;        
+}
+
+.movedown {
+	animation-duration: 1s;
+	animation-name: movedown;
+	animation-iteration-count: 1;    
+	animation-delay: 0;        
+}
+
+.disappear {
+	animation-duration: 1s;
+	animation-name: disappear;
+	animation-iteration-count: 1;    
+	animation-delay: 0;        
+	animation-fill-mode: forwards;
+}
+
+.confused {
+  animation-duration: 1s;
+  animation-name: confused;
+  animation-iteration-count: 1;    
+  animation-delay: 0;        
+}
+
+@keyframes confused {
+	0%, 100%  {
+		filter: sepia(0%) brightness(100%) hue-rotate(0deg);  
+	}
+		
+	50%  {
+		filter: sepia(100%) brightness(40%) hue-rotate(230deg);
+	}       
+}
+
+@keyframes moveup {
+	0%, 20%, 100%  {
+		transform: translateY(0);
+		filter: sepia(0%) hue-rotate(0deg) brightness(100%) saturate(100%);  
+	}
+	10%  {
+		transform: translateY(-0.5rem);
+		filter: sepia(100%) hue-rotate(120deg) brightness(2000%) saturate(20000%); 
+	}       
+}
+
+@keyframes movedown {
+	0%, 20%, 100%  {
+		transform: translateY(0);
+		filter: sepia(0%) hue-rotate(0deg) saturate(100%);  
+	}
+	10%  {
+		transform: translateY(0.5rem);
+		filter: sepia(100%) hue-rotate(0deg) saturate(200%); 
+	}       
+}
+
+@keyframes moveright {
+	0%, 20%, 100%  {
+		transform: translateX(0);
+		filter: sepia(0%) hue-rotate(0deg) saturate(100%);  
+	}
+	10%  {
+		transform: translateX(0.5rem);
+		filter: sepia(100%) hue-rotate(120deg) saturate(20000%); 
+	}       
+}
+
+@keyframes moveleft {
+	0%, 20%, 100%  {
+		transform: translateX(0);
+		filter: sepia(0%) hue-rotate(0deg) saturate(100%);  
+	}
+	10%  {
+		transform: translateX(-0.5rem);
+		filter: sepia(100%) hue-rotate(120deg) saturate(20000%); 
+	}       
+}
+
+@keyframes disappear {
+	0%  {
+		filter: sepia(0%) hue-rotate(0deg) saturate(100%);
+		opacity: 1;  
+	}
+	60% {
+		filter: sepia(100%) hue-rotate(60deg) saturate(20000%) blur(30px); 
+	  
+	}
+	100%  {
+		opacity: 0;
+	}       
+}

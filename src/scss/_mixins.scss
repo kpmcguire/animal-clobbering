@@ -1,0 +1,54 @@
+@use "sass:string";
+
+@mixin for-small {
+  @media (min-width: 640px) {@content;}
+}
+
+@mixin for-medium {
+  @media (min-width: 768px) {@content;}
+}
+
+@mixin for-large {
+  @media (min-width: 1024px) {@content;}
+}
+
+@mixin for-xl {
+  @media (min-width: 1280px) {@content;}
+}
+
+@function hexToRGBString($hexColor) {
+  @return "rgba(#{red($hexColor)},#{green($hexColor)},#{blue($hexColor)},#{alpha($hexColor)})";
+}
+
+@mixin elliptical-corners($scale, $color) {
+  $scale: 50 * $scale;
+  margin: #{$scale}px;
+  
+  $color: str-slice(#{$color}, -6);
+  
+  background-color: $color;
+  position: relative;
+  z-index: 0;
+  
+  > .button-inner {
+	  position: relative;
+	  z-index: 2;
+	  margin: -#{$scale/2}px;
+  }
+
+  &::after {
+	border: #{$scale}px solid transparent;
+	content: "";
+	display: block;
+	position: absolute;
+	top: -#{$scale}px;
+	right: -#{$scale}px;
+	bottom: -#{$scale}px;
+	left: -#{$scale}px;
+
+	z-index: 1;
+	border-image: url("data:image/svg+xml,%3Csvg width='#{$scale*3}' height='#{$scale*3}' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 #{$scale*1.5}C0 0 0 0 #{$scale*1.5} 0s#{$scale*1.5} 0 #{$scale*1.5} #{$scale*1.5} 0 #{$scale*1.5}-#{$scale*1.5} #{$scale*1.5}-#{$scale*1.5} 0-#{$scale*1.5}-#{$scale*1.5}' fill='%23#{$color}'/%3E%3C/svg%3E")
+	  #{$scale};
+  }
+}
+

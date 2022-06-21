@@ -1,0 +1,146 @@
+button {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.5rem;
+  appearance: none;
+  
+  svg {
+    width: 100%;
+  }
+}
+
+.header-buttons {
+  button {
+    @include elliptical-corners(0.35, $wood-dark);
+    background: $wood-dark;
+    fill: $wood-light;
+    
+    .svg-icon {
+      width: 1.25rem;
+      
+      @include for-medium {
+        width: 1.7rem;
+      }
+    }
+  }
+}
+
+.button-inner {
+  line-height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  @include for-medium {
+    line-height: 1.5;
+  }
+}
+
+.button-icon {
+  width: 1.7rem;
+  margin-right: 0.25rem;
+}
+
+.button-attack {
+  @include elliptical-corners(0.3, $attack_color);
+  background: $attack-color;
+  color: darken($attack_color, 40);
+  
+  @include for-medium {
+    @include elliptical-corners(0.6, $attack_color);  
+  }
+  
+  .icon {
+	  color: darken($attack_color, 25);
+  }
+  
+  &:hover {
+	filter: saturate(1.5);
+  }
+}
+
+.button-heal {
+  @include elliptical-corners(0.3, $heal_color);
+  color: darken($heal_color, 45);
+  background: $heal_color;
+  
+  @include for-medium {
+    @include elliptical-corners(0.6, $heal_color);  
+  }
+  
+  .icon {
+		color: darken($heal_color, 25);
+	}
+  
+  &:hover {
+	filter: saturate(1.7);
+  }
+}
+
+.button-defend {
+  @include elliptical-corners(0.3, $defend_color);
+  color: darken($defend_color, 40);
+
+  background: $defend_color;
+
+  @include for-medium {
+    @include elliptical-corners(0.6, $defend_color);  
+  }
+
+  .icon {
+	  color: darken($defend_color, 25);
+  }
+
+  &:hover {
+	filter: saturate(1.5);
+  }
+}
+
+.button-nothing {
+  @include elliptical-corners(0.3, $nothing_color);
+  color: darken($nothing_color, 40);
+
+  background: $nothing_color;
+
+  @include for-medium {
+    @include elliptical-corners(0.6, $nothing_color);  
+  }
+
+  .icon {
+    color: darken($nothing_color, 25);
+  }
+
+  &:hover {
+  filter: saturate(1.5);
+  }
+}
+
+.button-default {
+  @include elliptical-corners(0.3, $default_color);
+  color: darken($default_color, 40);
+
+  background: $default_color;
+
+  @include for-medium {
+    @include elliptical-corners(0.6, $default_color);  
+  }
+
+  .icon {
+    color: darken($default_color, 25);
+  }
+
+  &:hover {
+  filter: saturate(1.5);
+  }
+}
+
+.button-group-player-select {
+  button {
+    margin: 1.15rem;
+    
+    @include for-medium {
+      margin: 2.5rem;
+    }
+    
+  }
+}

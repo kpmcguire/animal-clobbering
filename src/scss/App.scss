@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "mixins";
+@import "fonts";
+@import "colors";
+@import "icons";
+@import "buttons";
+@import "animations";
+@import "backgrounds";
+
+.App {
+  text-align: center;
+  font-family: "Seurat";
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 3.5rem auto 3.5em;
+  
+  @include for-medium {
+    grid-template-rows: 5rem auto 3.5em;  
+  }
+}
+
+body {
+  background-color: #666;
+}
+
+.battle-arena {
+  padding: 0.5rem;
+}
+
+.player-character-wrapper {
+  position: relative;
+  text-align: left;
+    
+  .speech-bubble-wrapper-wrapper {
+    position: relative; 
+    top: 2rem;
+    left: 0;
+    
+    @include for-medium {
+      position: absolute;
+      top: 6rem;
+      right: -4rem;
+      left: initial;
+      max-width: 250px;
+    }
+  }
+}
+
+.player-character-wrapper, .enemy-character-wrapper {
+  
+  .image-wrapper {
+    margin: 2rem 0;
+  }
+
+  img {
+    image-rendering: pixelated;
+    filter: hue-rotate(0deg) sepia(0%) saturate(100%);
+  }
+}
+
+.enemy-character-wrapper {
+  text-align: right;
+}
+
+.player-name {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  line-height: 1;
+  margin-top: 0rem;
+}
+
+button[disabled] {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.app-header {
+  font-family: $logo-font;
+  color: $logo-yellow;
+  position: relative;
+  padding: 1rem;
+  text-align: left;
+  // padding-right: 6rem;
+  
+  text-shadow: -0.06em -0.06em 0 lighten($logo-yellow, 30), -0.03em -0.03em 0 lighten($logo-yellow, 30), 0.06em 0.06em 0 darken($logo-yellow, 35), 0.03em 0.03em 0 darken($logo-yellow, 35);
+
+
+  @include for-medium {
+    text-shadow: -0.03em -0.03em 0 lighten($logo-yellow, 30), -0.015em -0.015em 0 lighten($logo-yellow, 30), 0.03em 0.03em 0 darken($logo-yellow, 35), 0.015em 0.015em 0 darken($logo-yellow, 35);
+    padding-right: 1rem;
+  }
+  
+  background-size: 1400px;
+
+  
+  h1 {
+    font-size: 1.4rem;
+    line-height: 1;
+    top: 0.25rem;
+    position: relative;
+    
+    @include for-medium {
+      font-size: 3rem;
+    }
+  }
+  
+  .header-buttons {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    
+    @include for-medium {
+      top: 1rem;
+      right: 1rem;
+    }
+    
+    button + button {
+      margin-left: 1.5rem;
+      
+      @include for-medium {
+        margin-left: 2rem;
+      }
+    }
+  }  
+}
+
+.animated-background {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.speech-bubble-wrapper {
+  position: relative;
+  margin: 0;
+  
+  @include for-medium {
+    margin: 2em;
+  }
+
+  .name {
+    color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    line-height: 1;
+    min-width: 50px;
+    text-align: center;
+    display: inline-block;  
+    transform: rotate(-7deg) translateY(-25%) translateX(15%);
+    z-index: 3;
+    text-align: center;
+    font-size: 0.75rem;
+    padding: 0.35rem 1rem;
+    line-height: 1;
+
+    > p {
+      margin: 0.5em 1.5em;
+    }
+  }
+}
+
+.hide-me {
+  position: absolute;
+  left: -9999px;
+  width: 0;
+  height: 0;
+}
+
+.speech-bubble {
+  background-color: white;
+  color: #666;
+  min-height: 100px;
+  min-width: 300px;
+  max-width: 800px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: $dialogue-font;
+  line-height: 1.6;
+  font-size: 1.8em;
+
+  .content {
+    color: #666;
+    padding: 2em 2.5em 1.75em;
+    padding: 1rem 1.5rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+.player-hp-meter {
+  border: 2px solid white;
+  background-color: $attack_color;
+  width: calc(100% );
+  border-radius: 0.25rem;
+  display: block;
+  margin: 0.5rem 0;
+  appearance: none;
+}
+
+.player-hp-meter::-moz-progress-bar {
+  background-color: $heal_color;
+}
+
+.player-hp-meter::-webkit-progress-bar {
+  background-color: $attack_color;
+}
+
+.player-hp-meter::-webkit-progress-value {
+  background-color: $heal_color;
+}
+
+.player-character-wrapper {
+  .player-hp-meter {
+    transform: rotate(180deg)
+  }
+}
+
+.knock-out-wrapper {
+  background: darken(saturate($attack_color, 15), 15);
+  color: white;
+  border: 2px solid white;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  position: relative;
+  margin: 0 -0.25rem;
+  font-size: 1rem;
+  top: 1.9rem;
+  
+  @include for-medium {
+    top: 1.5rem;
+    font-size: 1.5rem;
+  }
+}
+
+.svg-icon {
+  max-width: 2rem;  
+}
+
+.player-action-buttons {
+  text-align: center;
+  
+  .button-inner {
+    .icon {
+      margin-right: 0;
+      
+      @include for-medium {
+        margin-right: 0.25rem;
+      }
+    }
+    
+    .button-text {
+      display: none;
+      
+      @include for-medium {
+        display: block;
+      }
+    }
+    
+    span {
+      display: inline;
+    }
+  }
+}
+
+.enemy-character-wrapper {
+  .player-action-buttons {
+    button {
+      &:hover {
+        cursor: auto;
+        filter: none;
+      }
+    }
+  }
+}
+
+.modal-overlay {
+  pointer-events: none;
+  z-index: 2;
+}
+
+.wood-texture {
+  @include topography-texture(darken(saturate($wood-light, 5), 7), $wood-light);
+}
+
+footer {
+  text-align: left;
+  padding: 1rem;
+  color: $dark-brown;
+  position: sticky;
+  bottom: 0;
+}
