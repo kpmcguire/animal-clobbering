@@ -10,7 +10,7 @@ const ModalSelectPlayer = (props) => {
 					{props.startingCharacters.map((sc) =>             
 						<button className="button-default" key={sc.id} onClick={()=>{props.initPlayer(sc)}}>
 							<div className="button-inner">
-							<img className="inline-block" src={sc.icon_uri} width="50"/>
+							<img className="inline-block" src={sc.icon_uri} width="50" alt={sc.name["name-USen"]}/>
 							{sc.name["name-USen"]}
 							</div>
 						</button>  

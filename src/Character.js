@@ -19,31 +19,31 @@ const Character = (props) => {
 		  
 		  <div className="image-wrapper">
 		    
-		  <img className="w-64 mx-auto" src={props.char.icon_uri}/>
+		  <img className="w-64 mx-auto" src={props.char.icon_uri} alt={props.char.name["name-USen"]}/>
 		
 		  </div>
 		  
 		  <div className="player-action-buttons">
-		  	{props.char.action == "attack" && 
+		  	{props.char.action === "attack" && 
 			  <button className="button-attack">
 			  	<div className="button-inner">
-			  		<span className="icon icon-attack"></span>
+			  		<span aria-label="attack" className="icon icon-attack"></span>
 				</div>
 			  </button>
 			}
 		  
-		  	{props.char.action == "defend" && 
+		  	{props.char.action === "defend" && 
 			  <button className="button-defend">
 					<div className="button-inner">
-			    		<span className="icon icon-defend"></span>
+			    		<span aria-label="defend" className="icon icon-defend"></span>
 			  		</div>
 			  </button>
 			}
 			
-			{props.char.action == "nothing" && 
+			{props.char.action === "nothing" && 
 				<button className="button-nothing">
 					<div className="button-inner">
-			  	  		<span className="icon icon-nothing"></span>
+			  	  		<span aria-label="nothing" className="icon icon-nothing"></span>
 			  		</div>
 				</button>
 			}

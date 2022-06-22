@@ -44,9 +44,6 @@ let shit_list = {
   normal: ["normal"]
 }
 
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
-
 function App() {
 
   const [characters, setCharacters] = useState({});
@@ -140,6 +137,8 @@ function App() {
         case 3:
           setGameState((gs) => ({...gs, bgChoice: bg3 }));
           break;
+        default:
+          setGameState((gs) => ({...gs, bgChoice: bg3 }));
     }
   }, [])
   
@@ -149,8 +148,8 @@ function App() {
     if(characters) {
       chooseStartingCharacters()
     }
-    
-  }, [count])
+  // eslint-disable-next-line react-hooks/exhaustive-deps    
+  }, [count, characters])
   
   useEffect(()=>{
     if(videoRef.current) {    
@@ -172,6 +171,7 @@ function App() {
   
   useEffect(()=>{
     enemyChooseAction()    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enemyCharacter.saying])
     
   useEffect(()=>{
@@ -189,8 +189,8 @@ function App() {
     if (enemyCharacter.hitPoints >=  enemyCharacter.maxHitPoints) {
       setEnemyCharacter((ec) => ({...ec, hitPoints: ec.maxHitPoints}));      
     }
-    
-  }, [enemyCharacter.hitPoints])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enemyCharacter.hitPoints, enemyCharacter.maxHitPoints])
   
   useEffect(()=>{
       setGameState((gs) => ({...gs, streak: gs.streak++}));
@@ -212,14 +212,15 @@ function App() {
     if (playerCharacter.hitPoints >= playerCharacter.maxHitPoints) {
       setPlayerCharacter((ec) => ({...ec, hitPoints: ec.maxHitPoints}));      
     }
-  }, [playerCharacter.hitPoints])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [playerCharacter.hitPoints, playerCharacter.maxHitPoints])
   
   useEffect(()=>{
     setTaunts(() => ({baseTaunts: [...initialTaunts, playerCharacter.saying]}));
     setTaunts(() => ({baseTaunts: [...initialTaunts, playerCharacter["catch-phrase"]]}));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerCharacter.saying])  
   
-
   const chooseStartingCharacters = () => {
     setStartingCharacters(sc => [getRandomCharacter(characters), getRandomCharacter(characters), getRandomCharacter(characters)])  
   }
@@ -235,11 +236,13 @@ function App() {
         break;
       case 4:
         let enemyDefensePower = getDiceRoll(1, 6)
-        setEnemyCharacter((ec) => ({...ec, action: "defend", defense: enemyRef.current.defense + 20 + gameState.streak }));
+        setEnemyCharacter((ec) => ({...ec, action: "defend", defense: enemyRef.current.defense + 10 + enemyDefensePower + gameState.streak }));
         break;
       case 5:
         setEnemyCharacter((ec) => ({...ec, action: "nothing" }));
         break;
+      default: 
+        setEnemyCharacter((ec) => ({...ec, action: "attack" }));
     }
   }
   
@@ -358,10 +361,6 @@ function App() {
     if(gameState.audioEnabled) {
       audio.play()
     }    
-  }
-  
-  const pauseAudio = (audio) => {
-    audio.pause()
   }
 
   const attack = () => {

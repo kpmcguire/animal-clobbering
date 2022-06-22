@@ -1,4 +1,5 @@
 @use "sass:string";
+@use "sass:math";
 
 @mixin for-small {
   @media (min-width: 640px) {@content;}
@@ -33,7 +34,7 @@
   > .button-inner {
 	  position: relative;
 	  z-index: 2;
-	  margin: -#{$scale/2}px;
+	  margin: #{math.div($scale, -2)}px;
   }
 
   &::after {
