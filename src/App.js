@@ -23,9 +23,16 @@ import healFile from "./audio/heal.m4a";
 import statsupFile from "./audio/statsup.m4a";
 import ailmentFile from "./audio/ailment.m4a";
 
-let timers = []
+const attack1 = new Audio(attackFile)
+const enemyHit = new Audio(enemyHitFile)
+const enemyAttack = new Audio(enemyAttackFile)
+const bump = new Audio(bumpFile)
+const win = new Audio(winFile)
+const heal1 = new Audio(healFile)
+const statsup = new Audio(statsupFile)
+const ailment = new Audio(ailmentFile)
 
-let audioTracks = []
+let timers = []
 
 let shit_list = {
   snooty: ["jock", "lazy", "normal"],
@@ -54,14 +61,7 @@ function App() {
   enemyRef.current = enemyCharacter;
 
 
-  audioTracks["attack1"] = new Audio(attackFile)
-  audioTracks["enemyHit"] = new Audio(enemyHitFile)
-  audioTracks["enemyAttack"] = new Audio(enemyAttackFile)
-  audioTracks["bump"] = new Audio(bumpFile)
-  audioTracks["win"] = new Audio(winFile)
-  audioTracks["heal1"] = new Audio(healFile)
-  audioTracks["statsup"] = new Audio(statsupFile)
-  audioTracks["ailment"] = new Audio(ailmentFile)
+
 
   const initialTaunts = [
     "You dare to defy me?",
@@ -155,7 +155,7 @@ function App() {
 
       document.querySelector(".enemy-character-wrapper img").classList.add("disappear")
 
-      playAudio(audioTracks["win"])
+      playAudio(win)
 
       clearAllTimers()
     }
@@ -294,7 +294,7 @@ function App() {
     document.querySelector(".player-character-wrapper img").classList.add("movedown")
 
 
-    playAudio(audioTracks["statsup"])
+    playAudio(statsup)
 
     let playerDefensePower = getDiceRoll(1, 6);
     setPlayerCharacter((pc) => ({ ...pc, defense: 10 + playerDefensePower, power: 0 }));
@@ -318,7 +318,7 @@ function App() {
 
 
 
-    playAudio(audioTracks["heal1"])
+    playAudio(heal1)
     setPlayerCharacter((pc) => ({ ...pc, hitPoints: pc.hitPoints + 10 + getDiceRoll(1, 10) }));
 
     timers.push(
@@ -364,7 +364,7 @@ function App() {
 
     document.querySelector(".player-character-wrapper img").classList.add("moveright")
 
-    playAudio(audioTracks["attack1"]);
+    playAudio(attack1);
 
     timers.push(
       setTimeout(() => {
@@ -391,7 +391,7 @@ function App() {
 
     timers.push(
       setTimeout(() => {
-        playAudio(audioTracks["enemyHit"]);
+        playAudio(enemyHit);
       }, 400)
     );
 
@@ -435,7 +435,7 @@ function App() {
 
         setEnemyCharacter((ec) => ({ ...ec, power: (enemyRef.current.power + gameState.streak + 5) * modifier }));
 
-        playAudio(audioTracks["enemyAttack"]);
+        playAudio(enemyAttack);
 
 
 
@@ -466,7 +466,7 @@ function App() {
 
         timers.push(
           setTimeout(() => {
-            playAudio(audioTracks["bump"]);
+            playAudio(bump);
           }, 400)
         );
 
@@ -492,7 +492,7 @@ function App() {
       case "defend":
 
         document.querySelector(".enemy-character-wrapper img").classList.add("movedown")
-        playAudio(audioTracks["statsup"])
+        playAudio(statsup)
 
         timers.push(
           setTimeout(() => {
@@ -507,7 +507,7 @@ function App() {
 
         break;
       case "nothing":
-        playAudio(audioTracks["ailment"])
+        playAudio(ailment)
         document.querySelector(".enemy-character-wrapper img").classList.add("confused")
 
         timers.push(
