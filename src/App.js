@@ -15,6 +15,7 @@ import { ReactComponent as IconVideoOff } from "./images/icon-film-off.svg"
 import WebFont from "webfontloader";
 
 
+
 import attack1 from "./audio/attack1.m4a";
 import enemyHit from "./audio/enemyhit.m4a";
 import enemyAttack from "./audio/enemyattack.m4a";
@@ -23,8 +24,6 @@ import win from "./audio/enemydie.m4a";
 import heal1 from "./audio/heal.m4a";
 import statsup from "./audio/statsup.m4a";
 import ailment from "./audio/ailment.m4a";
-
-let audioPlaceholder = new Audio("")
 
 let timers = []
 
@@ -54,6 +53,7 @@ function App() {
   playerRef.current = playerCharacter;
   enemyRef.current = enemyCharacter;
 
+  const audioRef = useRef(0);
 
   const initialTaunts = [
     "You dare to defy me?",
@@ -326,9 +326,9 @@ function App() {
   const playAudio = (audio) => {
     if (gameState.audioEnabled) {
       
-      audioPlaceholder.src = audio
+      audioRef.current.src = audio
       
-      audioPlaceholder.play()
+      audioRef.current.play()
     }
   }
 
@@ -577,6 +577,13 @@ function App() {
     <div className={appClass}>
       <header className="app-header wood-texture">
         <h1>Animal <wbr /> Clobbering</h1>
+
+        <audio ref={audioRef} className="sfx-player" preload="auto">
+          <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mp4"></source>
+          
+          
+          
+        </audio>
 
         <div className="header-buttons">
           <AudioPlayer toggleAudio={toggleAudio} gameState={gameState} />
