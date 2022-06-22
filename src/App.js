@@ -334,6 +334,7 @@ function App() {
 
   const attack = () => {
     enemyChooseAction()
+    playAudio(attack1);
 
     document.querySelector(".enemy-character-wrapper .player-action-buttons").style = "display: none";
     setGameState((gs) => ({ ...gs, disabled: true }));
@@ -359,7 +360,7 @@ function App() {
 
     document.querySelector(".player-character-wrapper img").classList.add("moveright")
 
-    playAudio(attack1);
+
 
     timers.push(
       setTimeout(() => {
@@ -381,13 +382,13 @@ function App() {
         }
 
         setEnemyCharacter((ec) => ({ ...ec, hitPoints: enemyCharacter.hitPoints - (thisAttack - enemyDefense) }));
-      }, 300)
+      }, 400)
     );
 
     timers.push(
       setTimeout(() => {
         playAudio(enemyHit);
-      }, 400)
+      }, 450)
     );
 
     timers.push(
@@ -414,6 +415,7 @@ function App() {
 
     switch (enemyCharacter.action) {
       case "attack":
+        playAudio(enemyAttack);
 
         document.querySelector(".enemy-character-wrapper img").classList.add("moveleft")
 
@@ -430,7 +432,6 @@ function App() {
 
         setEnemyCharacter((ec) => ({ ...ec, power: (enemyRef.current.power + gameState.streak + 5) * modifier }));
 
-        playAudio(enemyAttack);
 
 
 
@@ -456,13 +457,13 @@ function App() {
             }
 
             setPlayerCharacter((pc) => ({ ...pc, hitPoints: playerCharacter.hitPoints - (thisAttack - playerDefense) }));
-          }, 300)
+          }, 600)
         );
 
         timers.push(
           setTimeout(() => {
             playAudio(bump);
-          }, 400)
+          }, 600)
         );
 
         timers.push(
@@ -578,7 +579,7 @@ function App() {
       <header className="app-header wood-texture">
         <h1>Animal <wbr /> Clobbering</h1>
 
-        <audio ref={audioRef} className="sfx-player" preload="auto">
+        <audio ref={audioRef} className="sfx-player" preload="auto" autoplay="true">
           <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mp4"></source>
           
           
