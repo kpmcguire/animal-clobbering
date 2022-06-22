@@ -14,23 +14,17 @@ import { ReactComponent as IconVideoOff } from "./images/icon-film-off.svg"
 
 import WebFont from "webfontloader";
 
-import attackFile from "./audio/attack1.m4a";
-import enemyHitFile from "./audio/enemyhit.m4a";
-import enemyAttackFile from "./audio/enemyattack.m4a";
-import bumpFile from "./audio/bump.m4a";
-import winFile from "./audio/enemydie.m4a";
-import healFile from "./audio/heal.m4a";
-import statsupFile from "./audio/statsup.m4a";
-import ailmentFile from "./audio/ailment.m4a";
 
-const attack1 = new Audio(attackFile)
-const enemyHit = new Audio(enemyHitFile)
-const enemyAttack = new Audio(enemyAttackFile)
-const bump = new Audio(bumpFile)
-const win = new Audio(winFile)
-const heal1 = new Audio(healFile)
-const statsup = new Audio(statsupFile)
-const ailment = new Audio(ailmentFile)
+import attack1 from "./audio/attack1.m4a";
+import enemyHit from "./audio/enemyhit.m4a";
+import enemyAttack from "./audio/enemyattack.m4a";
+import bump from "./audio/bump.m4a";
+import win from "./audio/enemydie.m4a";
+import heal1 from "./audio/heal.m4a";
+import statsup from "./audio/statsup.m4a";
+import ailment from "./audio/ailment.m4a";
+
+let audioPlaceholder = new Audio("")
 
 let timers = []
 
@@ -59,8 +53,6 @@ function App() {
   const enemyRef = useRef(enemyCharacter);
   playerRef.current = playerCharacter;
   enemyRef.current = enemyCharacter;
-
-
 
 
   const initialTaunts = [
@@ -333,7 +325,10 @@ function App() {
 
   const playAudio = (audio) => {
     if (gameState.audioEnabled) {
-      audio.play()
+      
+      audioPlaceholder.src = audio
+      
+      audioPlaceholder.play()
     }
   }
 
