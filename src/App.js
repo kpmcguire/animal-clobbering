@@ -25,10 +25,6 @@ import healFile from "./audio/heal.m4a";
 import statsupFile from "./audio/statsup.m4a";
 import ailmentFile from "./audio/ailment.m4a";
 
-import bg1 from "./images/bg-1.mp4"
-import bg2 from "./images/bg-2.mp4"
-import bg3 from "./images/bg-3.mp4"
-
 let timers = []
 
 let audioTracks = []
@@ -129,16 +125,16 @@ function App() {
     
     switch(randomBgChoice) {
         case 1:
-          setGameState((gs) => ({...gs, bgChoice: bg1 }));
+          setGameState((gs) => ({...gs, bgChoice: "App bg1" }));
           break;
         case 2:
-          setGameState((gs) => ({...gs, bgChoice: bg2 }));
+          setGameState((gs) => ({...gs, bgChoice: "App bg2" }));
           break;
         case 3:
-          setGameState((gs) => ({...gs, bgChoice: bg3 }));
+          setGameState((gs) => ({...gs, bgChoice: "App bg3" }));
           break;
         default:
-          setGameState((gs) => ({...gs, bgChoice: bg3 }));
+          setGameState((gs) => ({...gs, bgChoice: "App bg3" }));
     }
   }, [])
   
@@ -599,7 +595,7 @@ switch (enemyCharacter.action) {
   };
   
   return (
-    <div className="App">
+    <div className={gameState.bgChoice}>
       <header className="app-header wood-texture">
         <h1>Animal <wbr/> Clobbering</h1>
         
@@ -619,20 +615,12 @@ switch (enemyCharacter.action) {
         
       </header>
       <main>
+
       <Blob className="hide-me" />
-      
-      {gameState.bgChoice && 
-        <video ref={videoRef} className="animated-background" src={gameState.bgChoice} loop="true" muted="true" preload="auto" />  
-      }
-      
-      
+
       <audio ref={audioRef} className="music-player" loop="true" preload="auto">
         <source src={battleMusicFileM4a} type="audio/mp4"></source>
       </audio>
-
-
-
-
 
 
       {gameState.enemyDead === true &&

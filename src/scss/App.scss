@@ -22,6 +22,19 @@
   }
 }
 
+.App {
+  background-size: cover;
+  &.bg1 {
+    background-image: url("../images/bg-1.gif");
+  }
+  &.bg2 {
+    background-image: url("../images/bg-2.gif");
+  }
+  &.bg3 {
+    background-image: url("../images/bg-3.gif");
+  }
+}
+
 body {
   background-color: #666;
 }
