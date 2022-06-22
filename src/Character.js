@@ -8,7 +8,7 @@ const Character = (props) => {
 	
 	return (
 		<>
-		  <p class="player-name" style={speechBubbleNameStyle}> {props.char.name["name-USen"]} </p>
+		  <p className="player-name" style={speechBubbleNameStyle}> {props.char.name["name-USen"]} </p>
 		  
 		  <progress className="player-hp-meter" max={props.char.maxHitPoints} value={props.char.hitPoints}/>
 		  

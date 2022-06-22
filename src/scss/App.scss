@@ -35,6 +35,19 @@
   }
 }
 
+.App.static {
+  &.bg1 {
+    background-image: url("../images/bg-1.png");
+  }
+  &.bg2 {
+    background-image: url("../images/bg-2.png");
+  }
+  &.bg3 {
+    background-image: url("../images/bg-3.png");
+  }
+}
+
+
 body {
   background-color: #666;
 }
