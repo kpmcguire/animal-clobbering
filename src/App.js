@@ -97,12 +97,11 @@ function App() {
     })
 
     async function fetchData() {
-      if (characters != {}) {        
+      if (characters !== {}) {        
         const response = await fetch("https://acnhapi.com/v1/villagers");
         const char = await response.json();
               
         characters = char
-        var listKeys = Object.keys(char);
       }
     }
     
