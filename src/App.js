@@ -14,7 +14,7 @@ import { ReactComponent as IconVideoOff } from "./images/icon-film-off.svg"
 
 import WebFont from "webfontloader";
 
-
+import seedrandom from 'seedrandom';
 
 import attack1 from "./audio/attack1.m4a";
 import enemyHit from "./audio/enemyhit.m4a";
@@ -26,6 +26,8 @@ import statsup from "./audio/statsup.m4a";
 import ailment from "./audio/ailment.m4a";
 
 let timers = []
+
+let characters = {}
 
 let shit_list = {
   snooty: ["jock", "lazy", "normal"],
@@ -39,10 +41,6 @@ let shit_list = {
 }
 
 function App() {
-
-  const [characters, setCharacters] = useState({});
-  const [count, setCount] = useState();
-
   const [startingCharacters, setStartingCharacters] = useState([]);
 
   const [playerCharacter, setPlayerCharacter] = useState({});
@@ -99,14 +97,15 @@ function App() {
     })
 
     async function fetchData() {
-      const response = await fetch("https://acnhapi.com/v1/villagers");
-      const char = await response.json();
-
-      setCharacters(char)
-      var listKeys = Object.keys(char);
-      setCount(listKeys.length)
-
+      if (characters != {}) {        
+        const response = await fetch("https://acnhapi.com/v1/villagers");
+        const char = await response.json();
+              
+        characters = char
+        var listKeys = Object.keys(char);
+      }
     }
+    
     fetchData();
 
     let randomBgChoice = getDiceRoll(1, 3);
@@ -133,7 +132,7 @@ function App() {
       chooseStartingCharacters()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps    
-  }, [count, characters])
+  }, [characters])
 
   useEffect(() => {
     enemyChooseAction()
@@ -218,8 +217,6 @@ function App() {
     var randomObject = chars[listKeys[randomIndex]];
     return randomObject;
   }
-
-
 
   const enemyApproaches = () => {
     if (characters !== undefined) {
@@ -308,8 +305,6 @@ function App() {
 
     document.querySelector(".player-character-wrapper img").classList.add("moveup")
 
-
-
     playAudio(heal1)
     setPlayerCharacter((pc) => ({ ...pc, hitPoints: pc.hitPoints + 10 + getDiceRoll(1, 10) }));
 
@@ -320,14 +315,11 @@ function App() {
     );
 
     timers.push(setTimeout(() => { enemyAction() }, 1300));
-
   }
 
   const playAudio = (audio) => {
     if (gameState.audioEnabled) {
-      
       audioRef.current.src = audio
-      
       audioRef.current.play()
     }
   }
@@ -359,8 +351,6 @@ function App() {
     setPlayerCharacter((pc) => ({ ...pc, power: (playerRef.current.power + gameState.streak) * modifier }));
 
     document.querySelector(".player-character-wrapper img").classList.add("moveright")
-
-
 
     timers.push(
       setTimeout(() => {
@@ -431,9 +421,6 @@ function App() {
         }
 
         setEnemyCharacter((ec) => ({ ...ec, power: (enemyRef.current.power + gameState.streak + 5) * modifier }));
-
-
-
 
         timers.push(
 
@@ -552,18 +539,14 @@ function App() {
   }
 
   function hashCode(str) {
-    var hash = 0, i, chr;
-    if (str.length === 0) return hash;
-    for (i = 0; i < str.length; i++) {
-      chr = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + chr;
-      hash |= 0;
-    }
-
-    let num = hash.toString();
+    let num = new seedrandom(str).int32()
+    num = Math.abs(num)
+    
+    num = num.toString();
     num = num.substring(0, 2);
     num = Number(num);
-    return Math.abs(num);
+    
+    return num;
   };
 
   let appClass = [
@@ -581,9 +564,6 @@ function App() {
 
         <audio ref={audioRef} className="sfx-player" preload="auto" autoplay="true">
           <source src="data:audio/mpeg;base64,SUQzBAAAAAABEVRYWFgAAAAtAAADY29tbWVudABCaWdTb3VuZEJhbmsuY29tIC8gTGFTb25vdGhlcXVlLm9yZwBURU5DAAAAHQAAA1N3aXRjaCBQbHVzIMKpIE5DSCBTb2Z0d2FyZQBUSVQyAAAABgAAAzIyMzUAVFNTRQAAAA8AAANMYXZmNTcuODMuMTAwAAAAAAAAAAAAAAD/80DEAAAAA0gAAAAATEFNRTMuMTAwVVVVVVVVVVVVVUxBTUUzLjEwMFVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQsRbAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVf/zQMSkAAADSAAAAABVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV" type="audio/mp4"></source>
-          
-          
-          
         </audio>
 
         <div className="header-buttons">
@@ -659,8 +639,6 @@ function App() {
                   <Character char={enemyCharacter} textColor={enemyCharacter["text-color"]} bubbleColor={enemyCharacter["bubble-color"]} />
                 }
               </div>
-
-
             </div>
       </main>
       <footer className="wood-texture vertically-centered">
